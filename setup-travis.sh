@@ -26,6 +26,8 @@ conda create --yes -n test python=$TRAVIS_PYTHON_VERSION
 source activate test
 conda install -c conda-forge numpy=$NUMPY_VERSION cython pytest
 
+pip install six
+
 if [[ "$GALA_VERSION" == "dev" ]]; then
   pip install git+https://github.com/adrn/gala.git
 else
