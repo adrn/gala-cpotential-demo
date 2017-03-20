@@ -18,13 +18,11 @@ numpy_base_path = os.path.split(numpy.__file__)[0]
 
 cfg = defaultdict(list)
 cfg['include_dirs'].append(os.path.join(numpy_base_path, 'core', 'include'))
-cfg['include_dirs'].append(gala_base_path)
+cfg['include_dirs'].append(os.path.join(gala_base_path, 'potential'))
 cfg['extra_compile_args'].append('--std=gnu99')
 cfg['sources'].append('potentialdemo/cpotential.pyx')
-cfg['sources'].append(os.path.join(gala_base_path,
-                                   'potential/potential/builtin/builtin_potentials.c'))
-cfg['sources'].append('potentialdemo/src/cpotential.c')
-extensions.append(Extension('potentialdemo.cpotential', **cfg))
+cfg['sources'].append('potentialdemo/src/potential.c')
+extensions.append(Extension('potentialdemo.potential', **cfg))
 
 pkg_data = dict()
 pkg_data[""] = ["LICENSE", "AUTHORS"]

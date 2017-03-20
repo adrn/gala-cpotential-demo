@@ -22,11 +22,11 @@ from gala.potential.potential.cpotential cimport CPotentialWrapper
 from gala.potential.potential.cpotential import CPotentialBase
 from gala.units import galactic
 
-cdef extern from "potential/potential/src/funcdefs.h":
+cdef extern from "src/funcdefs.h":
     ctypedef double (*energyfunc)(double t, double *pars, double *q, int n_dim) nogil
     ctypedef void (*gradientfunc)(double t, double *pars, double *q, int n_dim, double *grad) nogil
 
-cdef extern from "potential/potential/src/cpotential.h":
+cdef extern from "potential/src/cpotential.h":
     enum:
         MAX_N_COMPONENTS = 16
 
