@@ -38,7 +38,7 @@ cdef extern from "potential/potential/src/cpotential.h":
         int n_params[MAX_N_COMPONENTS]
         double *parameters[MAX_N_COMPONENTS]
 
-cdef extern from "src/cpotential.h":
+cdef extern from "src/potential.h":
     double kepler_energy(double t, double *pars, double *q, int n_dim) nogil
     void kepler_gradient(double t, double *pars, double *q, int n_dim, double *grad) nogil
 
