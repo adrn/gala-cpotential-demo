@@ -7,15 +7,22 @@ python:
   - 3.5
   - 3.6
 
+env:
+  global:
+    - NUMPY_VERSION=1.12
+    - GALA_VERSION=0.1.3
+
 matrix:
   include:
 
-    env: NUMPY_VERSION=1.10
-    env: NUMPY_VERSION=1.11
-    env: NUMPY_VERSION=1.12
+    - python: 3.5
+      env: NUMPY_VERSION=1.10
 
-    env: GALA_VERSION='dev'
-    env: GALA_VERSION=0.1.3
+    - python: 3.6
+      env: NUMPY_VERSION=1.11
+
+    - python: 3.6
+      env: GALA_VERSION='dev'
 
 install:
   - source setup-travis.sh

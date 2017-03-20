@@ -14,7 +14,7 @@ hash -r
 conda config --set always_yes yes --set changeps1 no
 conda update -q conda
 conda info -a
-conda create --yes -n test python=$PYTHON_VERSION
+conda create --yes -n test python=$TRAVIS_PYTHON_VERSION
 source activate test
 conda install -c conda-forge numpy=$NUMPY_VERSION cython pytest
 
