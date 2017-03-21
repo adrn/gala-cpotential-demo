@@ -2,9 +2,9 @@ sudo: false
 language: python
 
 python:
-  - 2.7
-  - 3.4
-  - 3.5
+  # - 2.7
+  # - 3.4
+  # - 3.5
   - 3.6
 
 env:
@@ -15,8 +15,8 @@ env:
 matrix:
   include:
 
-    - python: 3.5
-      env: NUMPY_VERSION=1.10
+    # - python: 3.5
+    #   env: NUMPY_VERSION=1.10
 
     - python: 3.6
       env: NUMPY_VERSION=1.11
@@ -25,4 +25,5 @@ install:
   - source setup-travis.sh
 
 script:
+  - cd tests
   - py.test -v
