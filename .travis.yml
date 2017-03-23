@@ -25,4 +25,4 @@ install:
   - source setup-travis.sh
 
 script:
-  - py.test -v tests/
+  - cd tests; python -m pytest test_simple.py

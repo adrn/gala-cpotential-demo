@@ -30,7 +30,7 @@ pkg_data["potentialdemo"] = ["src/*.h", "src/*.c"]
 
 print(extensions)
 
-setup(name='gala_cpotential_demo',
+setup(name='potentialdemo',
       version='0.1',
       description='Demonstration of how to define a new potential class implemented in C that '
                   'works with the Gala dynamics machinery.',
@@ -40,5 +40,6 @@ setup(name='gala_cpotential_demo',
       license='MIT',
       url='https://github.com/adrn/gala-cpotential-demo',
       cmdclass={'build_ext': build_ext},
+      packages=["potentialdemo"],
       package_data=pkg_data,
       ext_modules=extensions)
