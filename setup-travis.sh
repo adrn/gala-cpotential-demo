@@ -29,8 +29,7 @@ conda install -c conda-forge numpy=$NUMPY_VERSION cython pytest
 pip install six
 
 if [[ "$GALA_VERSION" == "dev" ]]; then
-  # pip install git+https://github.com/adrn/gala.git
-  pip install git+https://github.com/adrn/gala.git@potential/cdef-subclass
+  pip install git+https://github.com/adrn/gala.git
 else
   pip install astro-gala
 fi
