@@ -2,24 +2,23 @@ sudo: false
 language: python
 
 python:
-  - 2.7
   - 3.4
   - 3.5
   - 3.6
 
 env:
   global:
-    - NUMPY_VERSION=1.12
+    - NUMPY_VERSION=stable
     - GALA_VERSION='dev' # only works with dev version on master!
 
 matrix:
   include:
 
     - python: 3.5
-      env: NUMPY_VERSION=1.10
+      env: NUMPY_VERSION=1.12
 
     - python: 3.6
-      env: NUMPY_VERSION=1.11
+      env: NUMPY_VERSION=1.13
 
 install:
   - source setup-travis.sh
