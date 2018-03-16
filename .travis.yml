@@ -8,16 +8,13 @@ python:
 
 env:
   global:
-    - NUMPY_VERSION=stable
+    - NUMPY_VERSION=1.14
     - GALA_VERSION='dev' # only works with dev version on master!
 
 matrix:
   include:
 
     - python: 3.5
-      env: NUMPY_VERSION=1.12
-
-    - python: 3.6
       env: NUMPY_VERSION=1.13
 
 install:
