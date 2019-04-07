@@ -30,8 +30,10 @@ __all__ = ['KeplerPotential']
 
 cdef class KeplerWrapper(CPotentialWrapper):
 
-    def __init__(self, G, parameters, q0):
-        self.init([G] + list(parameters), np.ascontiguousarray(q0))
+    def __init__(self, G, parameters, q0, R):
+        self.init([G] + list(parameters),
+                  np.ascontiguousarray(q0),
+                  np.ascontiguousarray(R))
         self.cpotential.value[0] = <energyfunc>(kepler_energy)
         self.cpotential.gradient[0] = <gradientfunc>(kepler_gradient)
 
@@ -48,7 +50,7 @@ class KeplerPotential(CPotentialBase):
         length, mass, time, and angle units.
 
     """
-    def __init__(self, m, units=None, origin=None):
+    def __init__(self, m, units=None, origin=None, R=None):
         parameters = OrderedDict()
         ptypes = OrderedDict()
 
@@ -56,7 +58,7 @@ class KeplerPotential(CPotentialBase):
         ptypes['m'] = 'mass'
 
         super(KeplerPotential, self).__init__(parameters=parameters,
-                                              parameter_physical_types=ptypes,
                                               units=units,
                                               origin=origin,
+                                              R=R,
                                               Wrapper=KeplerWrapper)
