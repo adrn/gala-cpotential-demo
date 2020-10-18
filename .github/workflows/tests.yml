@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: "py${{ matrix.python-version }} on ${{ matrix.os }}"
+    name: "py${{ matrix.python-version }} on ${{ matrix.os }}, Gala dev ${{ matrix.gala-dev }}"
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -29,12 +29,12 @@ jobs:
       - name: Install Gala dev version
         if: matrix.gala-dev
         run: |
-          pip install git+https://github.com/adrn/gala.git
+          python -m pip install git+https://github.com/adrn/gala.git
 
       - name: Install Gala latest stable version
         if: matrix.gala-dev != true
         run: |
-          pip install astro-gala
+          python -m pip install astro-gala
 
       - name: Build and install this package
         run: |
