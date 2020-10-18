@@ -1,0 +1,44 @@
+name: Windows-tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: "py${{ matrix.python-version }} on ${{ matrix.os }}"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.7", "3.8", "3.9"]
+        gala-dev: [false, true]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: conda-incubator/setup-miniconda@v1
+        with:
+          auto-update-conda: true
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get install libgsl-dev
+
+      - name: Install Gala dev version
+        if: ${{ matrix.gala-dev }}
+        run: |
+          pip install git+https://github.com/adrn/gala.git
+
+      - name: Install Gala latest stable version
+        if: ${{ matrix.gala-dev }}
+        run: |
+          pip install astro-gala
+
+      - name: Build and install this package
+        run: |
+          python -m pip install -e .
