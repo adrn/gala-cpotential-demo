@@ -31,12 +31,12 @@ jobs:
           sudo apt-get install libgsl-dev
 
       - name: Install Gala dev version
-        if: ${{ matrix.gala-version }} == 'dev'
+        if: matrix.gala-version == 'dev'
         run: |
           python -m pip install git+https://github.com/adrn/gala.git
 
       - name: Install Gala latest stable version
-        if: ${{ matrix.gala-version }} == 'stable'
+        if: matrix.gala-version == 'stable'
         run: |
           python -m pip install astro-gala
 
