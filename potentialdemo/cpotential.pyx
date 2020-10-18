@@ -5,8 +5,6 @@
 # cython: wraparound=False
 # cython: profile=False
 
-from __future__ import division, print_function
-
 # Standard library
 from collections import OrderedDict
 
@@ -14,19 +12,18 @@ from collections import OrderedDict
 import numpy as np
 cimport numpy as np
 np.import_array()
-import cython
-cimport cython
 
 # Project
-from gala.potential.potential.cpotential cimport CPotentialWrapper, energyfunc, gradientfunc
-from gala.potential.potential.cpotential import CPotentialBase
-from gala.units import galactic
+from gala.potential.potential.cpotential cimport CPotentialWrapper
+from gala.potential.potential.cpotential cimport energyfunc, gradientfunc
+from gala.potential import CPotentialBase, PotentialParameter
 
 cdef extern from "src/potential.h":
     double kepler_energy(double t, double *pars, double *q, int n_dim) nogil
     void kepler_gradient(double t, double *pars, double *q, int n_dim, double *grad) nogil
 
 __all__ = ['KeplerPotential']
+
 
 cdef class KeplerWrapper(CPotentialWrapper):
 
@@ -37,10 +34,9 @@ cdef class KeplerWrapper(CPotentialWrapper):
         self.cpotential.value[0] = <energyfunc>(kepler_energy)
         self.cpotential.gradient[0] = <gradientfunc>(kepler_gradient)
 
+
 class KeplerPotential(CPotentialBase):
     r"""
-    KeplerPotential(m, units=None, origin=None)
-
     Parameters
     ----------
     m : :class:`~astropy.units.Quantity`, numeric [mass]
@@ -50,15 +46,5 @@ class KeplerPotential(CPotentialBase):
         length, mass, time, and angle units.
 
     """
-    def __init__(self, m, units=None, origin=None, R=None):
-        parameters = OrderedDict()
-        ptypes = OrderedDict()
-
-        parameters['m'] = m
-        ptypes['m'] = 'mass'
-
-        super(KeplerPotential, self).__init__(parameters=parameters,
-                                              units=units,
-                                              origin=origin,
-                                              R=R,
-                                              Wrapper=KeplerWrapper)
+    m = PotentialParameter('m', physical_type='mass')
+    Wrapper = KeplerWrapper

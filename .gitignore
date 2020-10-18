@@ -1,1 +1,3 @@
 *.c
+potentialdemo/version.py
+*.egg-info/

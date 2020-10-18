@@ -2,9 +2,7 @@
 
 from collections import defaultdict
 import os
-from distutils.core import setup
-from distutils.extension import Extension
-from Cython.Distutils import build_ext
+from setuptools import setup, Extension
 
 # Build the C / Cython code
 extensions = []
@@ -28,18 +26,17 @@ pkg_data = dict()
 pkg_data[""] = ["LICENSE", "AUTHORS"]
 pkg_data["potentialdemo"] = ["src/*.h", "src/*.c"]
 
-print(extensions)
+VERSION_TEMPLATE = """
+# Note that we need to fall back to the hard-coded version if either
+# setuptools_scm can't be imported or setuptools_scm can't determine the
+# version, so we catch the generic 'Exception'.
+try:
+    from setuptools_scm import get_version
+    version = get_version(root='..', relative_to=__file__)
+except Exception:
+    version = '{version}'
+""".lstrip()
 
-setup(name='potentialdemo',
-      version='0.1',
-      description='Demonstration of how to define a new potential class implemented in C that '
-                  'works with the Gala dynamics machinery.',
-      install_requires=['numpy', 'astro-gala'],
-      author='adrn',
-      author_email='adrn@astro.princeton.edu',
-      license='MIT',
-      url='https://github.com/adrn/gala-cpotential-demo',
-      cmdclass={'build_ext': build_ext},
-      packages=["potentialdemo"],
-      package_data=pkg_data,
+setup(use_scm_version={'write_to': os.path.join('potentialdemo', 'version.py'),
+                       'write_to_template': VERSION_TEMPLATE},
       ext_modules=extensions)
