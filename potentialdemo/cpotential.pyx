@@ -3,10 +3,6 @@
 # cython: nonecheck=False
 # cython: cdivision=True
 # cython: wraparound=False
-# cython: profile=False
-
-# Standard library
-from collections import OrderedDict
 
 # Third-party
 import numpy as np
