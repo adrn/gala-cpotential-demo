@@ -1,4 +1,4 @@
-name: Windows-tests
+name: Tests
 
 on:
   push:
@@ -11,12 +11,12 @@ on:
 jobs:
   build:
     name: "py${{ matrix.python-version }} on ${{ matrix.os }}"
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         python-version: ["3.7", "3.8", "3.9"]
         gala-dev: [false, true]
+        os: ["ubuntu-latest"]
 
     steps:
       - uses: actions/checkout@v2
@@ -26,12 +26,12 @@ jobs:
           sudo apt-get install libgsl-dev
 
       - name: Install Gala dev version
-        if: ${{ matrix.gala-dev }}
+        if: matrix.gala-dev
         run: |
           pip install git+https://github.com/adrn/gala.git
 
       - name: Install Gala latest stable version
-        if: ${{ matrix.gala-dev }}
+        if: ! matrix.gala-dev
         run: |
           pip install astro-gala
 
