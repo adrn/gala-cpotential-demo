@@ -10,29 +10,33 @@ on:
 
 jobs:
   build:
-    name: "py${{ matrix.python-version }} on ${{ matrix.os }}, Gala dev ${{ matrix.gala-dev }}"
+    name: "py${{ matrix.python-version }} on ${{ matrix.os }}, Gala ${{ matrix.gala-version }}"
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         python-version: ["3.7", "3.8", "3.9"]
-        gala-dev: [false, true]
+        gala-version: ["stable", "dev"]
         os: ["ubuntu-latest"]
 
     steps:
       - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
         run: |
           sudo apt-get install libgsl-dev
 
       - name: Install Gala dev version
-        if: matrix.gala-dev
+        if: ${{ matrix.gala-version }} == 'dev'
         run: |
           python -m pip install git+https://github.com/adrn/gala.git
 
       - name: Install Gala latest stable version
-        if: matrix.gala-dev != true
+        if: ${{ matrix.gala-version }} == 'stable'
         run: |
           python -m pip install astro-gala
 
