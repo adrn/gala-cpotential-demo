@@ -7,6 +7,8 @@ on:
   pull_request:
     branches:
       - main
+  schedule:
+    - cron:  '0 6 * * 1'
 
 jobs:
   build:
@@ -16,7 +18,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.7", "3.8", "3.9"]
-        gala-version: ["stable", "dev"]
+        gala-version: ["dev"]  # TODO: add "stable" when I release gala v1.3
         os: ["ubuntu-latest"]
 
     steps:
@@ -35,11 +37,10 @@ jobs:
         run: |
           python -m pip install git+https://github.com/adrn/gala.git
 
-      # TODO: enable this when I release the next version of gala
-      # - name: Install Gala latest stable version
-      #   if: matrix.gala-version == 'stable'
-      #   run: |
-      #     python -m pip install astro-gala
+      - name: Install Gala latest stable version
+        if: matrix.gala-version == 'stable'
+        run: |
+          python -m pip install astro-gala
 
       - name: Build and install this package
         run: |
