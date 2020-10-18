@@ -31,7 +31,7 @@ jobs:
           pip install git+https://github.com/adrn/gala.git
 
       - name: Install Gala latest stable version
-        if: ! matrix.gala-dev
+        if: matrix.gala-dev != true
         run: |
           pip install astro-gala
 
