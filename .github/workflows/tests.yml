@@ -13,13 +13,12 @@ on:
 jobs:
   build:
     name: "py${{ matrix.python-version }} on ${{ matrix.os }}, Gala ${{ matrix.gala-version }}"
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.7", "3.8", "3.9"]
-        gala-version: ["dev"]  # TODO: add "stable" when I release gala v1.3
-        os: ["ubuntu-latest"]
+        python-version: ["3.8", "3.9", "3.10"]
+        gala-version: ["dev", "stable"]
 
     steps:
       - uses: actions/checkout@v2
@@ -40,7 +39,7 @@ jobs:
       - name: Install Gala latest stable version
         if: matrix.gala-version == 'stable'
         run: |
-          python -m pip install astro-gala
+          python -m pip install gala
 
       - name: Build and install this package
         run: |
